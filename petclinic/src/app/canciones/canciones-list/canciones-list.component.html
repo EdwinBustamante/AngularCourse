@@ -1,0 +1,71 @@
+<button (click)="reproducir()">Hola</button>
+
+<div class="row">
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="artista"
+      [ngModelOptions]="{standalone: true}">
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="buscarCanciones()">Search</button>
+  </form>
+</div>
+
+
+
+<div class="card mb-3 border-dark" style="max-width: 800px; margin-top: 20dx" *ngFor="let cancion of canciones">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="{{cancion.albumImagen}}" class="card-img-top" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title text-info text-monospace">{{cancion.cancion}}</h5>
+        <p class="card-text text-monospace margin:0px text-primary"><small class="text-muted">Album:
+            {{cancion.album}}</small></p>
+        <p class="card-text text-monospace"><small class="text-muted">Artista: {{cancion.artista}}</small></p>
+        <p class="card-text text-monospace"><small class="text-muted">Precio:
+            {{cancion.precio}}{{cancion.moneda}}</small></p>
+        <p class="card-text text-monospace"><small class="text-muted">Genero: {{cancion.genero  }}</small></p>
+        <p class="card-text text-monospace "><small class="text-muted">Fecha: {{cancion.fecha  }</small>}</p>
+        <p class="card-text" ><small class="text-muted">Last updated 3 mins ago</small></p>
+        <audio controls preload="none">
+          <source src="{{cancion.vistaPrevia}}" type="audio/mp4" />
+            <p>Your browser does not support HTML5 audio.</p>
+            </audio>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function cambiarTrack(track) {
+    var path = track.getAttribute("path")
+    viejo_audio = document.getElementById("reproductor")
+    audio_padre = viejo_audio.parentNode
+    audio_padre.removeChild(viejo_audio)
+    nuevo_audio = document.createElement("audio")
+    nuevo_audio.setAttribute("id", "reproductor")
+    nuevo_audio.setAttribute("controls", "controls")
+    // nuevo_audio.setAttribute("autoplay", "autoplay")
+    source = document.createElement("source")
+    source.setAttribute("src", path)
+    source.setAttribute("type", "audio/mpeg")
+    source.setAttribute("id", "reproductorSource")
+    nuevo_audio.appendChild(source)
+    audio_padre.appendChild(nuevo_audio)
+  }
+
+  function cargarReproductor() {
+    var select = document.getElementById("selectTrack")
+    var path = select.options[0].getAttribute("path")
+    nuevo_audio = document.createElement("audio")
+    nuevo_audio.setAttribute("id", "reproductor")
+    nuevo_audio.setAttribute("controls", "controls")
+    source = document.createElement("source")
+    source.setAttribute("src", path)
+    source.setAttribute("type", "audio/mpeg")
+    source.setAttribute("id", "reproductorSource")
+    nuevo_audio.appendChild(source)
+    padre = document.getElementById("reproductorBox")
+    padre.appendChild(nuevo_audio)
+  }
+
+</script>

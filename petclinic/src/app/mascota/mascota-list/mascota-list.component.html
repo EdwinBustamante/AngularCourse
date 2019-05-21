@@ -1,0 +1,20 @@
+ <h2>MASCOTAS</h2>
+ <button type="button" class="btn btn-primary" (click)="irNuevaMascota()">Adicionar</button>
+ <a routerLink="/form-mascota/false" class="btn btn-primary active" role="button" aria-pressed="true">ADICIONAR</a>
+ <hr/>
+ <div class="row">
+    <div class="card " style="width: 18rem; margin-left: 20px; margin-top: 20px" *ngFor="let mascota of mascotas"  >
+      <img src="https://via.placeholder.com/100x50" class="card-img-top" alt="...">
+      <div class="card-body " >
+        <h5 class="card-title">{{mascota.nombre}}</h5>
+        <p class="card-text">Edad: {{mascota.edad}}</p>
+        <p class="card-text">id: {{mascota.id}}</p>
+        <p class="card-text">Raza: {{mascota.raza}}</p>
+        <p class="card-text">Especie: {{mascota.especie}}</p>
+        <p class="card-text">Fecha Ingreso: {{mascota.fechaIngreso  | date: 'dd-MM-yyy HH:mm'}}</p>
+        <button class="btn btn-primary btn-sm" routerLink="/form-mascota/true/{{mascota.id}}" >Editar</button>
+        <button class="btn btn-danger btn-sm"(click)="eliminarMascota(mascota.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  

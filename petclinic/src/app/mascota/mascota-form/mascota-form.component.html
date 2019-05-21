@@ -1,0 +1,50 @@
+<h1 *ngIf="!isEdit">Nueva Mascota</h1>
+<h1 *ngIf="isEdit ">Editar Mascota</h1>
+<form #formm="ngForm" novalidate>
+  <div class="form-group">
+    <label for="inputNombre">Nombre</label>
+    <input name="nombre" #nombre="ngModel" type="text" [(ngModel)]="mascota.nombre" class="form-control" id="inputNombre"
+      placeholder="Introduzca nombre de la mascota" required>
+    <div *ngIf="nombre.errors && (nombre.dirty || nombre.touched )">
+      <div style="color:red" *ngIf="nombre.errors.required">
+        * Coloque un nombre a la mascota
+
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputRaza">Raza</label>
+    <input name="raza" #raza="ngModel" type="text" [(ngModel)]="mascota.raza" class="form-control" id="inputRaza"
+      placeholder="Introduzca la raza de la mascota" required minlength="5">
+    <div *ngIf="raza.errors && (raza.dirty || raza.touched )">
+      <div style="color:red" *ngIf="raza.errors.minlength">
+        * Se requiere al menos 5 caracteres
+      </div>
+      <div style="color:red" *ngIf="raza.errors.required">
+        * La raza es requerida
+      </div>
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEdad">Edad</label>
+    <input name="edad" #edad="ngModel" type="number" [(ngModel)]="mascota.edad" class="form-control" id="inputEdad"
+      placeholder="Introduzca edad de la mascota" required edadValidator>
+    <div *ngIf="edad.errors && (edad.dirty || edad.touched )">
+      <div style="color:red" *ngIf="edad.errors.required">
+        * Se requiere la edad
+      </div>
+      <div style="color:red" *ngIf="edad.errors.edadReturn">
+        * Edad fuera de rango
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEspecie">Especie</label>
+    <select name="select" class="form-control" id="inputEspecie" [(ngModel)]="mascota.especie">
+      <option *ngFor="let especie of especies | enumKeyValuelist; "> {{especie.value}} </option>
+    </select>
+  </div>
+  <button [disabled]="formm.invalid" (click)="guardar()" class="btn btn-primary">{{buttonTitle}}</button>
+  <button routerLink="/mascotas" class="btn btn-danger">CANCELAR</button>
+</form>
